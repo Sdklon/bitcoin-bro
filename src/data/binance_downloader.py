@@ -6,11 +6,11 @@
   Refer to notebooks/1.0-Downloading-Data.ipynb for an usage example
 """
 import os, sys
-from datetime import *
 import pandas as pd
-from pathlib import Path
 import urllib.request
-
+from datetime import * 
+from pathlib import Path
+from binance.spot import Spot
 
 YEARS = ['2017', '2018', '2019', '2020', '2021', '2022']
 INTERVALS = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1mo"]
@@ -21,6 +21,30 @@ PERIOD_START_DATE = '2020-01-01'
 BASE_URL = 'https://data.binance.vision/'
 START_DATE = date(int(YEARS[0]), MONTHS[0], 1)
 END_DATE = datetime.date(datetime.now())
+
+BINANCE_CLIENT = Spot()
+print(BINANCE_CLIENT.time())
+
+def get_realtime_klines(start_time, ticker="BTCUSDT", interval="1m"):
+    client = BINANCE_CLIENT
+        
+    # Get all klines today up to the latest recorded minute
+    realtime_klines = []
+    try:
+        # API limits max 1000 klines in response
+        new_klines = None
+
+        # To handle the case where more than 1000 minutes have elapsed in the day already
+        while new_klines is None or len(new_klines) > 0:
+            new_klines = client.klines(ticker, interval, startTime=start_time, limit=1000)
+            if len(new_klines) > 0:
+                realtime_klines.extend(new_klines)
+                start_time = new_klines[-1][6] + 1
+            
+    except Exception as e:
+        print(f"Exception getting realtime klines from Binance API: {e}")
+        
+    return realtime_klines
 
 def get_destination_dir(file_url, folder=None):
   store_directory = os.environ.get('STORE_DIRECTORY')
@@ -45,7 +69,7 @@ def download_file(base_path, file_name, date_range=None, folder=None):
   
 
   if os.path.exists(save_path):
-    print("\nfile already exists! {}".format(save_path))
+    # print("\nfile already exists! {}".format(save_path))
     return
   
   # make the directory
@@ -135,3 +159,33 @@ def download_historical_daily_klines(trading_type, symbols, num_symbols, interva
 
     current += 1
 
+def generate_latest_historical_df(trading_type, 
+                                  ticker_symbol, 
+                                  interval, 
+                                  start_date, 
+                                  end_date, 
+                                  historical_data_dir, 
+                                  historical_files_dir, 
+                                  historical_df_path,
+                                  raw_df_headers,
+                                  write_csv=True,
+                                 ):
+    
+    download_historical_daily_klines(trading_type, 
+                                     [ticker_symbol], 
+                                     1, 
+                                     [interval], 
+                                     start_date, 
+                                     end_date, 
+                                     historical_data_dir)
+
+    # Read all files in BINANCE_HISTORICAL_FILES_DIR
+    # files = sorted([str(path) for path in historical_files_dir.glob('**/*') if path.is_file()])
+    files = [f"{historical_files_dir}/{ticker_symbol}-{interval}-{ts.strftime('%Y-%m-%d')}.zip" for ts in list(pd.date_range(start=start_date, end=end_date))]
+    df_list = [pd.read_csv(path, names=raw_df_headers) for path in files]
+    historical_df = pd.concat(df_list, axis=0, ignore_index=True)
+
+    if write_csv:
+      historical_df.to_csv(historical_df_path, index=False)
+    
+    return historical_df
