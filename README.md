@@ -37,7 +37,7 @@ jupyter notebook
     │   ├── 1.0-Downloading-Data                <- Shows how raw data is downloaded from Binance API
     │   ├── 2.0-Feature-Engineering             <- Shows how raw data is transformed by feature engineering
     │   ├── 3.0-Modelling-XGB-Baseline          <- Shows the training and hyperparam tuning of XGBoost baseline
-    │   └── 4.0-Generate-real-time-predictions  <- Shows how to generate real-time predictions
+    │   └── 4.0-Generate-Real-Time-Predictions  <- Shows how to generate real-time predictions
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
