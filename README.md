@@ -1,9 +1,24 @@
 bitcoin-god
 ==============================
 
-Time-series prediction for Bitcoin price
+Time-series prediction for Bitcoin (BTCUSDT) price, with data scraped from Binance API
 
-Project Organization
+## Installation
+
+1. Create a conda environment and pip install dependencies.
+```
+conda create -n bitcoin-god python=3.8
+conda activate bitcoin-god
+pip install -r requirements.txt
+```
+
+2. Run notebooks.
+```
+jupyter notebook
+```
+
+
+## Project Organization
 ------------
 
     ├── LICENSE
@@ -11,7 +26,6 @@ Project Organization
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
@@ -19,9 +33,11 @@ Project Organization
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
+    ├── notebooks          <- Jupyter notebooks showing experiments and analysis
+    │   ├── 1.0-Downloading-Data                <- Shows how raw data is downloaded from Binance API
+    │   ├── 2.0-Feature-Engineering             <- Shows how raw data is transformed by feature engineering
+    │   ├── 3.0-Modelling-XGB-Baseline          <- Shows the training and hyperparam tuning of XGBoost baseline
+    │   └── 4.0-Generate-real-time-predictions  <- Shows how to generate real-time predictions
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
@@ -36,18 +52,18 @@ Project Organization
     │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
+    │   │   └── binance_downloader.py           <- Contains functions to download data from Binance API
     │   │
     │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
+    │   │   ├── feature_generator.py            <- Contains functions to generate features
+    |   |   └── utilities.py                    <- Contains utility functions such as time converting
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
     │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
+    │   │   └── metrics.py                      <- Contains functions to compute model performance metrics 
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
+    │       └── plot_generator.py               <- Contains functions to generate plots
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
