@@ -11,6 +11,11 @@ from .utilities import (
     convert_unix_time_to_month,
 )
 
+from ..data.binance_downloader import (
+    get_realtime_klines,
+    generate_latest_historical_df,
+)
+
 def generate_moving_average_features(raw_df: pd.DataFrame, ma_window_sizes_dict: dict, feature: str = 'close') -> pd.DataFrame:
     """
     Generate moving average features
@@ -114,3 +119,36 @@ def feature_pipeline_v1(raw_df: pd.DataFrame, ma_window_sizes_dict: dict, lag_ma
     df = df.reset_index(drop=True)
     
     return df[feature_cols], ohe_encoder
+
+# Prepare data for inference
+# Take data from 30 days ago to support all required feature generation
+def generate_inference_df(trading_type,
+                          ticker_symbol,
+                          interval,
+                          start_date,
+                          end_date,
+                          historical_data_dir,
+                          historical_files_dir,
+                          small_historical_df_path,
+                          raw_df_headers,
+                          ohe_encoder,
+                          ma_window_sizes_dict
+                         ):
+    historical_df = generate_latest_historical_df(trading_type, 
+                                                  ticker_symbol,
+                                                  interval, 
+                                                  start_date, 
+                                                  end_date, 
+                                                  historical_data_dir, 
+                                                  historical_files_dir, 
+                                                  small_historical_df_path, 
+                                                  raw_df_headers,
+                                                  write_csv=True
+                                                 )
+    historical_end_time = int(historical_df.iloc[-1]['close_time'])
+    realtime_klines = get_realtime_klines(start_time=historical_end_time + 1, ticker=ticker_symbol, interval=interval)
+    realtime_df = pd.DataFrame(realtime_klines, columns=raw_df_headers).apply(pd.to_numeric)
+    combined_df = pd.concat([historical_df, realtime_df], axis=0)
+    processed_df, ohe_encoder = feature_pipeline_v1(combined_df, ma_window_sizes_dict, lag_max_offset_period=120, ohe_encoder=ohe_encoder)
+    
+    return processed_df
