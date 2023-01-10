@@ -12,7 +12,7 @@ conda activate bitcoin-god
 pip install -r requirements.txt
 ```
 
-2. Run notebooks.
+2. Run notebooks in the `/notebooks` directory.
 ```
 jupyter notebook
 ```
