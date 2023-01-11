@@ -23,7 +23,7 @@ BASE_URL = 'https://data.binance.vision/'
 START_DATE = date(int(YEARS[0]), MONTHS[0], 1)
 END_DATE = datetime.date(datetime.now())
 
-BINANCE_CLIENT = Spot()
+BINANCE_CLIENT = Spot(base_url="https://data.binance.com")
 print(BINANCE_CLIENT.time())
 
 def get_realtime_klines(start_time, ticker="BTCUSDT", interval="1m"):
