@@ -50,14 +50,14 @@ def strategy_3(price_df):
     return round(total_profit, 2)
 
 def strategy_4(price_df):
-    # Strategy 4: Buy if predicted > prev_predicted. Sell if predicted < prev_predicted.
+    # Strategy 4: Buy if predicted > prev_predicted. Sell if predicted > prev_predicted.
     total_profit = 0
     buy_price = 0
     for idx, row in price_df.iterrows():
         # Buy (assume entry price is prev_actual)
         if buy_price == 0 and row['predicted'] > row['prev_predicted']:
             buy_price = row['prev_actual']
-        elif buy_price > 0 and row['predicted'] < row['prev_predicted']:
+        elif buy_price > 0 and row['predicted'] > row['prev_predicted']:
             profit = row['actual'] - buy_price
             # Reset buy_price
             buy_price = 0
