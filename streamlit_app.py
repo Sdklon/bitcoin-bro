@@ -110,7 +110,7 @@ def generate_data():
 # App layout
 st.title("Bitcoin God")
 st.markdown("Time-series prediction for BTCUSDT using data scraped from Binance API.  \n"
-"Code for this project can be found [here](https://github.com/jonathanlimsc/bitcoin-god)"
+"[Homepage](https://jonathanlimsc.com) | [Github](https://github.com/jonathanlimsc/bitcoin-god)"
 )
 # Init session states
 st.session_state['model_type'] = "-"
@@ -127,7 +127,7 @@ with st.sidebar:
 
 with st.container():
     st.subheader(f"Actual vs Predicted Price of BTCUSDT using {st.session_state['model_type']}")
-    st.text(f"Data for {datetime.utcnow().strftime('%Y-%m-%d')} UTC time")
+    st.text(f"Data from {datetime.utcnow().strftime('%Y-%m-%d')} 00:00 to {datetime.utcnow().strftime('%Y-%m-%d %H:%M')} UTC time")
     chart_df, strategy_profits = generate_data()
     # Strategy profit metrics
     col1, col2, col3, col4 = st.columns(4)
@@ -138,6 +138,11 @@ with st.container():
     
     if chart_df is not None:
         fig = px.line(chart_df)
+        fig.update_layout(
+            xaxis_title="Minute",
+            yaxis_title="Price (USDT)",
+            yaxis_tickformat = 'd',
+        )
         st.plotly_chart(fig, use_container_width=True)
     st.button("Pull New Data and Generate Predictions!")
 

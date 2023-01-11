@@ -21,7 +21,8 @@ jupyter notebook
 ```
 streamlit run streamlit_app.py
 ```
-
+## Screenshot of Real-time Dashboard
+![Streamlit Real-time Dashboard](assets/streamlit-screenshot.png)
 
 ## Project Organization
 ------------
