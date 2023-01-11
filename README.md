@@ -17,6 +17,11 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
+3. Run the streamlit application to see the real-time predictions
+```
+streamlit run streamlit_app.py
+```
+
 
 ## Project Organization
 ------------
