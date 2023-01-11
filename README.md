@@ -3,6 +3,8 @@ bitcoin-god
 
 Time-series prediction for Bitcoin (BTCUSDT) price, with data scraped from Binance API
 
+![Streamlit Real-time Dashboard](assets/streamlit-screenshot.png)
+
 ## Installation
 
 1. Create a conda environment and pip install dependencies.
@@ -21,8 +23,6 @@ jupyter notebook
 ```
 streamlit run streamlit_app.py
 ```
-## Screenshot of Real-time Dashboard
-![Streamlit Real-time Dashboard](assets/streamlit-screenshot.png)
 
 ## Project Organization
 ------------
