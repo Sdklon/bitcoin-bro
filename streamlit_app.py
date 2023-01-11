@@ -152,7 +152,7 @@ with st.container():
     st.markdown("#### Strategy 1")
     st.markdown("Buy if predicted price for that minute is greater than the previous minute's closing price. Sell on each minute's closing price. This strategy will never allow holding of the asset beyond a minute.")
     st.markdown("#### Strategy 2")
-    st.markdown("Buy if predicted price for that minute is greater than the previous minute's closing price. Sell when that minute's predicted price is less than the buy price (buy price is assumed to be the closing price of the minute before the buy). Selling is only possible when a previous buy has taken place. This strategy allows holding of the asset across minutes, until the sell condition is triggered.")
+    st.markdown("Buy if predicted price for that minute is greater than the previous minute's closing price. Sell when that minute's predicted price is greater than the buy price (buy price is assumed to be the closing price of the minute before the buy). Selling is only possible when a previous buy has taken place. This strategy allows holding of the asset across minutes, until the sell condition is triggered.")
     st.markdown("#### Strategy 3")
     st.markdown("Buy if predicted price for that minute is greater than the previous minute's predicted price. Sell on close. This strategy will never allow holding of the asset beyond a minute.")
     st.markdown("#### Strategy 4")

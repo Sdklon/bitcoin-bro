@@ -28,8 +28,8 @@ def strategy_2(price_df):
         # Buy (assume entry price is prev_actual)
         if buy_price == 0 and row['predicted'] > row['prev_actual']:
             buy_price = row['actual']
-        # Sell (if previously bought and price is predicted to drop below buy_price)
-        elif buy_price > 0 and row['predicted'] < buy_price:
+        # Sell (if previously bought and price is predicted to be higher than buy_price)
+        elif buy_price > 0 and row['predicted'] > buy_price:
             profit = row['actual'] - buy_price
             # Reset buy_price
             buy_price = 0
