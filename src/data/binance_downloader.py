@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 """
-  This script is largely based on https://github.com/binance/binance-public-data/tree/master/python.
+  This script is largely based on https://github.com/binance/binance-public-data/tree/master/python,
+  with some slight modifications and additions.
   It downloads the historical data from the publicly available Binance API
   Refer to notebooks/1.0-Downloading-Data.ipynb for an usage example
 """
