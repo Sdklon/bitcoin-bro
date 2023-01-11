@@ -134,7 +134,7 @@ with st.container():
     col1.metric("Strategy 1 Profit", f"${strategy_profits[0]}")
     col2.metric("Strategy 2 Profit", f"${strategy_profits[1]}")
     col3.metric("Strategy 3 Profit", f"${strategy_profits[2]}")
-    col4.metric("Strategy 3 Profit", f"${strategy_profits[3]}")
+    col4.metric("Strategy 4 Profit", f"${strategy_profits[3]}")
     
     if chart_df is not None:
         fig = px.line(chart_df)
