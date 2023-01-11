@@ -148,7 +148,7 @@ with st.container():
 
 with st.container():
     st.markdown("### Info about the trading strategies")
-    st.markdown("Each trade is assumed to be for 1 BTC at prevailing price (close price for that minute). No trading fees are assumed.")
+    st.markdown("Each trade is assumed to be for 1 BTC at prevailing price (the previous minute's closing price). No trading fees are assumed.")
     st.markdown("#### Strategy 1")
     st.markdown("Buy if predicted price for that minute is greater than the previous minute's closing price. Sell on each minute's closing price. This strategy will never allow holding of the asset beyond a minute.")
     st.markdown("#### Strategy 2")
