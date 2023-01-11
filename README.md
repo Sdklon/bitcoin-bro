@@ -3,6 +3,8 @@ bitcoin-god
 
 Time-series prediction for Bitcoin (BTCUSDT) price, with data scraped from Binance API
 
+[Real-time Dashboard](https://jonathanlimsc-bitcoin-god-v1.streamlit.app/)
+
 ![Streamlit Real-time Dashboard](assets/streamlit-screenshot.png)
 
 ## Installation
