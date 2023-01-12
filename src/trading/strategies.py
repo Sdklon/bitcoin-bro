@@ -15,7 +15,7 @@ def strategy_1(price_df):
         # Buy (assume entry price is prev_actual) and sell on close
         if row['predicted'] > row['prev_actual']:
             profit = row['actual'] - row['prev_actual']
-        total_profit += profit
+            total_profit += profit
     
     return round(total_profit, 2)
 
