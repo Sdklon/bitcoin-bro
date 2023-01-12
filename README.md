@@ -11,8 +11,8 @@ Time-series prediction for Bitcoin (BTCUSDT) price, with data scraped from Binan
 
 1. Create a conda environment and pip install dependencies.
 ```
-conda create -n bitcoin-god python=3.8
-conda activate bitcoin-god
+conda create -n bitcoin-bro python=3.8
+conda activate bitcoin-bro
 pip install -r requirements.txt
 ```
 
