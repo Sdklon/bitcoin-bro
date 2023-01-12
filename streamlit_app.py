@@ -80,35 +80,23 @@ def generate_data():
     if st.session_state['model'] is None:
         return
 
-    is_loaded = False
-    historical_lookback_days = 1
+    start_date = (datetime.utcnow() - timedelta(days=30) ).strftime('%Y-%m-%d')
+    end_date = (datetime.utcnow() - timedelta(days=1) ).strftime('%Y-%m-%d')
     
-    while not is_loaded:
-        try:
-            start_date = (datetime.utcnow() - timedelta(days=30) ).strftime('%Y-%m-%d')
-            end_date = (datetime.utcnow() - timedelta(days=historical_lookback_days) ).strftime('%Y-%m-%d')
-            
-            processed_df = generate_inference_df(
-                TRADING_TYPE,
-                TICKER_SYMBOL,
-                INTERVAL,
-                start_date,
-                end_date,
-                BINANCE_HISTORICAL_DATA_DIR,
-                BINANCE_HISTORICAL_FILES_DIR,
-                str(PROCESSED_DATA_DIR / 'small_historical_for_realtime_df.csv'),
-                RAW_DF_HEADERS,
-                st.session_state['encoder'],
-                MA_WINDOW_SIZES_DICT,
-            )
-            is_loaded = True
-
-        except Exception as e:
-            print(f"Exception occurred when generating inference_df: {e}.")
-            print(f"Increasing historical_lookback_days by 1 to deal with missing historical data at the boundary")
-            historical_lookback_days += 1
-            continue
-
+    processed_df = generate_inference_df(
+        TRADING_TYPE,
+        TICKER_SYMBOL,
+        INTERVAL,
+        start_date,
+        end_date,
+        BINANCE_HISTORICAL_DATA_DIR,
+        BINANCE_HISTORICAL_FILES_DIR,
+        str(PROCESSED_DATA_DIR / 'small_historical_for_realtime_df.csv'),
+        RAW_DF_HEADERS,
+        st.session_state['encoder'],
+        MA_WINDOW_SIZES_DICT,
+    )
+    
     inference_X = processed_df.values[:, 1:-1]
     inference_Y = processed_df.values[:, -1]
     pred_inference_Y = st.session_state['model'].predict(inference_X)

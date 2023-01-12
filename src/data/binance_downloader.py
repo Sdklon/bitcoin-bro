@@ -183,7 +183,16 @@ def generate_latest_historical_df(trading_type,
     # Read all files in BINANCE_HISTORICAL_FILES_DIR
     # files = sorted([str(path) for path in historical_files_dir.glob('**/*') if path.is_file()])
     files = [f"{historical_files_dir}/{ticker_symbol}-{interval}-{ts.strftime('%Y-%m-%d')}.zip" for ts in list(pd.date_range(start=start_date, end=end_date))]
-    df_list = [pd.read_csv(path, names=raw_df_headers) for path in files]
+    
+    df_list = []
+    for path in files:
+      try:
+        _df = pd.read_csv(path, names=raw_df_headers)
+        df_list.append(_df)
+      except Exception as e:
+        print(f"Exception reading csv for {path}")
+        break
+      
     historical_df = pd.concat(df_list, axis=0, ignore_index=True)
 
     if write_csv:
