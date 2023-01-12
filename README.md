@@ -1,9 +1,9 @@
-bitcoin-god
+bitcoin-bro
 ==============================
 
 Time-series prediction for Bitcoin (BTCUSDT) price, with data scraped from Binance API
 
-[Real-time Dashboard](https://jonathanlimsc-bitcoin-god-v1.streamlit.app/) | [Blogpost](https://jonathanlimsc.com/projects/bitcoin-god)
+[Real-time Dashboard](https://jonathanlimsc-bitcoin-bro-v1.streamlit.app/) | [Blogpost](https://jonathanlimsc.com/projects/bitcoin-bro)
 
 ![Streamlit Real-time Dashboard](assets/streamlit-screenshot.png)
 

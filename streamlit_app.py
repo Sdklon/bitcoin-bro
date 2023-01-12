@@ -109,7 +109,7 @@ def generate_data():
     # plot_actual_and_predicted_price(inference_Y, pred_inference_Y, title="Actual and Predicted BTCUSDT Price for XGB Baseline")
 
 # App layout
-st.title("Bitcoin God")
+st.title("Bitcoin Bro")
 st.markdown("Time-series prediction for BTCUSDT using data scraped from Binance API.  \n"
 "[Homepage](https://jonathanlimsc.com) | [Github](https://github.com/jonathanlimsc/bitcoin-god)"
 )
