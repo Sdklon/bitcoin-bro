@@ -1,7 +1,6 @@
 # Bitcoin Bro
 
 [![DOI](https://zenodo.org/badge/586732017.svg)](https://zenodo.org/badge/latestdoi/586732017)
-==============================
 
 Time-series prediction for Bitcoin (BTCUSDT) price using data scraped from Binance API
 
