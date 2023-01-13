@@ -111,7 +111,7 @@ def generate_data():
 # App layout
 st.title("Bitcoin Bro")
 st.markdown("Time-series prediction for BTCUSDT using data scraped from Binance API.  \n"
-"[Homepage](https://jonathanlimsc.com) | [Github](https://github.com/jonathanlimsc/bitcoin-god)"
+"[Blogpost](https://jonathanlimsc.com/projects/bitcoin-bro) | [Github](https://github.com/jonathanlimsc/bitcoin-god)"
 )
 # Init session states
 st.session_state['model_type'] = "-"
